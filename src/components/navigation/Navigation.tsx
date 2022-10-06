@@ -7,6 +7,7 @@ import { formatAddress } from '../../utils/formatAddress';
 
 export const Navigation = () => {
     const address = '0xfA2bAC4b80DeAA1594Cd29A920367E4c038c7620';
+    const balance = '3600 LAKE | 1.2 ETH';
     return (
         <nav className="relative flex flex-wrap items-center justify-between px-8 py-2 bg-black-500">
             <div className="w-full flex flex-wrap items-center justify-between">
@@ -19,7 +20,7 @@ export const Navigation = () => {
                 </div>
 
                 <div className="flex items-center justify-end">
-                    <Button disabled={true} text="3600 LAKE | 1.2 ETH"></Button>
+                    <Button disabled={true} text={balance}></Button>
                     <div className="ml-6">
                         <ButtonWithIcon
                             disabled={true}

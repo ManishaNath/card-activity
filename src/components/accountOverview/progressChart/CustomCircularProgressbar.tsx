@@ -6,6 +6,7 @@ import {
 import { ReactNode } from 'react';
 
 type Props = {
+    className: string;
     strokeWidth: number;
     width: string;
     value: number;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const CustomCircularProgressbar = ({
+    className,
     strokeWidth,
     width,
     value,
@@ -26,7 +28,7 @@ export const CustomCircularProgressbar = ({
     secondColor,
     children,
 }: Props) => (
-    <div className={`${width} p-4`}>
+    <div className={`${width} ${className} p-4`}>
         {!!gradientId && (
             <svg style={{ height: 0, width: 0 }}>
                 <defs>

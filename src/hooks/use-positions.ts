@@ -1,8 +1,7 @@
 import { IPositionDetails } from '../interfaces/positionDetails.interface';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { parseBigNumber } from '../utils/parseBigNumber';
-import { usePositionById } from './use-position-by-id';
-import { usePositionsCount } from './use-positions-count';
+import { usePositionDetailsById } from './use-position-details-by-id';
 import { useUniswapV3PosContract } from './use-uniswap-v3-pos-contract';
 
 export const usePositions = async (
@@ -11,10 +10,12 @@ export const usePositions = async (
 ): Promise<IPositionDetails[]> => {
     const positions: IPositionDetails[] = [];
     try {
-        const positionsCount = await usePositionsCount(provider, account);
-        if (positionsCount > 0) {
-            const uniswapV3PosContract = useUniswapV3PosContract(provider);
-            for (let i = 0; i < positionsCount; i++) {
+        const uniswapV3PosContract = useUniswapV3PosContract(provider);
+        const balance = await uniswapV3PosContract.callStatic.balanceOf(
+            account,
+        );
+        if (balance > 0) {
+            for (let i = 0; i < balance; i++) {
                 const positionId = parseBigNumber(
                     await uniswapV3PosContract.callStatic.tokenOfOwnerByIndex(
                         account,
@@ -22,9 +23,12 @@ export const usePositions = async (
                     ),
                     0,
                 );
-                const position = await usePositionById(provider, positionId);
-                if (position) {
-                    positions.push(position);
+                const posDetails = await usePositionDetailsById(
+                    provider,
+                    positionId,
+                );
+                if (posDetails) {
+                    positions.push(posDetails);
                 }
             }
         }

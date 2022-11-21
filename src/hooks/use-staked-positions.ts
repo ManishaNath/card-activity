@@ -3,7 +3,7 @@ import { IPositionDetails } from '../interfaces/positionDetails.interface';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { stakingAbi } from '../abis/staking';
 import { useConfig } from './use-config';
-import { usePositionById } from './use-position-by-id';
+import { usePositionDetailsById } from './use-position-details-by-id';
 
 export const useStakedPositions = async (
     provider: JsonRpcProvider,
@@ -21,7 +21,7 @@ export const useStakedPositions = async (
             await stakingContract.callStatic.stakedBalance(account);
         if (positionIds.length > 0) {
             positionIds.forEach(async (id: number) => {
-                const position = await usePositionById(provider, id);
+                const position = await usePositionDetailsById(provider, id);
                 if (position) {
                     stakedPositions.push(position);
                 }

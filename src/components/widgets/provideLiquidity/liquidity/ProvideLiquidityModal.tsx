@@ -5,6 +5,7 @@ import {
     DEFAULT_TRANSACTION_DEADLINE,
     MAX_TICK,
     REFRESH_LAKE_PRICE_INTERVAL,
+    TICKS_RANGE,
 } from '../../../../constants/commons';
 import {
     Immutables,
@@ -157,6 +158,17 @@ export const ProvideLiquidityModal = ({
         setStep(!!selectedPosition ? 2 : 1);
     }, [selectedPosition]);
 
+    useEffect(() => {
+        setDefaultSettings();
+    }, [areSettingsOpen]);
+
+    const setDefaultSettings = () => {
+        setSlippageTolerance(DEFAULT_SLIPPAGE_TOLERANCE);
+        setTransactionDeadline(DEFAULT_TRANSACTION_DEADLINE);
+        setTickLower(-MAX_TICK);
+        setTickUpper(MAX_TICK);
+    };
+
     const onUsdtValueChange = (value: number) => {
         setUsdtInputValue(value);
         setIsUsdtValueValid(value <= usdtBalance);
@@ -294,7 +306,7 @@ export const ProvideLiquidityModal = ({
                                         setTickLower(
                                             tickLower === -MAX_TICK
                                                 ? nearestTick -
-                                                      10 *
+                                                      (TICKS_RANGE / 2) *
                                                           immutables!
                                                               .tickSpacing
                                                 : tickLower +
@@ -315,7 +327,7 @@ export const ProvideLiquidityModal = ({
                                         setTickUpper(
                                             tickUpper === MAX_TICK
                                                 ? nearestTick +
-                                                      10 *
+                                                      (TICKS_RANGE / 2) *
                                                           immutables!
                                                               .tickSpacing
                                                 : tickUpper -

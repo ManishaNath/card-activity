@@ -1,3 +1,11 @@
+import {
+    ETH_ADDRESS,
+    LAKE_ADDRESS,
+    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
+    USDT_ADDRESS,
+    VESTING_ADDRESS,
+} from '../constants/mainnet';
+
 import { IPool } from '../interfaces/pool.interface';
 import { networks } from '../constants/networks';
 
@@ -56,13 +64,13 @@ export const useConfig = () => {
 
     return {
         ...networks[chain],
-        lakeAddress: process.env.REACT_APP_LAKE_ADDRESS || '',
-        ethAddress: process.env.REACT_APP_ETH_ADDRESS || '',
-        usdtAddress: process.env.REACT_APP_USDT_ADDRESS || '',
+        lakeAddress: process.env.REACT_APP_LAKE_ADDRESS || LAKE_ADDRESS,
+        ethAddress: process.env.REACT_APP_ETH_ADDRESS || ETH_ADDRESS,
+        usdtAddress: process.env.REACT_APP_USDT_ADDRESS || USDT_ADDRESS,
         vestingScheduleAddress:
-            process.env.REACT_APP_VESTING_SCHEDULE_ADDRESS || '',
+            process.env.REACT_APP_VESTING_ADDRESS || VESTING_ADDRESS,
         nonfungiblePositionManagerAddress:
-            process.env.REACT_APP_NONFUNGIBLE_POSITION_MANAGER_ADDRESSES || '',
+            NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
         poolDeploymentBlockNumber: Number(
             process.env.REACT_APP_POOL_DEPLOYMENT_BLOCK_NUMBER,
         ),
